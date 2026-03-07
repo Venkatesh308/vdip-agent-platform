@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- POC ODX Fixture: 0x10 DiagnosticSessionControl + 0x22 RDBI -->
+<ODX MODEL-VERSION="2.2.0">
+  <DIAG-LAYER-CONTAINER>
+    <BASE-VARIANTS>
+      <BASE-VARIANT ID="BV_POC_ECU">
+        <SHORT-NAME>POC_ECU</SHORT-NAME>
+        <DIAG-SERVICES>
+          <DIAG-SERVICE ID="DS_0x10_DEFAULT">
+            <SHORT-NAME>DiagnosticSessionControl_Default</SHORT-NAME>
+            <REQUEST>
+              <PARAMS>
+                <PARAM SEMANTIC="SERVICE-ID"><CODED-VALUE>16</CODED-VALUE></PARAM>
+                <PARAM SEMANTIC="SUBFUNCTION"><CODED-VALUE>1</CODED-VALUE></PARAM>
+              </PARAMS>
+            </REQUEST>
+          </DIAG-SERVICE>
+          <DIAG-SERVICE ID="DS_0x10_EXTENDED">
+            <SHORT-NAME>DiagnosticSessionControl_Extended</SHORT-NAME>
+            <REQUEST>
+              <PARAMS>
+                <PARAM SEMANTIC="SERVICE-ID"><CODED-VALUE>16</CODED-VALUE></PARAM>
+                <PARAM SEMANTIC="SUBFUNCTION"><CODED-VALUE>3</CODED-VALUE></PARAM>
+              </PARAMS>
+            </REQUEST>
+          </DIAG-SERVICE>
+          <DIAG-SERVICE ID="DS_0x22_VIN">
+            <SHORT-NAME>ReadDataByIdentifier_VIN</SHORT-NAME>
+            <REQUEST>
+              <PARAMS>
+                <PARAM SEMANTIC="SERVICE-ID"><CODED-VALUE>34</CODED-VALUE></PARAM>
+                <PARAM SEMANTIC="ID"><CODED-VALUE>61840</CODED-VALUE></PARAM>
+              </PARAMS>
+            </REQUEST>
+          </DIAG-SERVICE>
+        </DIAG-SERVICES>
+      </BASE-VARIANT>
+    </BASE-VARIANTS>
+  </DIAG-LAYER-CONTAINER>
+</ODX>
