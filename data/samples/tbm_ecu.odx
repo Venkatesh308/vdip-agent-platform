@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ODX MODEL-VERSION="2.0.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DIAG-LAYER-CONTAINER>
+
+    <ECU-SHARED-DATAS>
+      <ECU-SHARED-DATA ID="ESD_TBM">
+        <SHORT-NAME>TBM_ECU</SHORT-NAME>
+        <LONG-NAME>Telematics Box Module</LONG-NAME>
+      </ECU-SHARED-DATA>
+    </ECU-SHARED-DATAS>
+
+    <ECU-VARIANTS>
+      <ECU-VARIANT ID="EV_TBM_V1">
+        <SHORT-NAME>TBM_V1</SHORT-NAME>
+        <LONG-NAME>Telematics Box Module Variant 1</LONG-NAME>
+
+        <!-- ═══════════════════════════════════════════════
+             DIAG COMMS — UDS Services
+             ═══════════════════════════════════════════ -->
+        <DIAG-COMMS>
+
+          <!-- ─────────────────────────────────────────
+               SID 0x10 — DiagnosticSessionControl
+               ───────────────────────────────────── -->
+
+          <!-- 0x10 01 — Default Session -->
+          <DIAG-SERVICE ID="DS_DSC_DEFAULT" ADDRESSING="PHYSICAL">
+            <SHORT-NAME>DSC_DefaultSession</SHORT-NAME>
+            <LONG-NAME>Diagnostic Session Control — Default Session</LONG-NAME>
+            <REQUEST ID="REQ_DSC_DEFAULT">
+              <SHORT-NAME>REQ_DSC_Default</SHORT-NAME>
+              <PARAMS>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                  <SHORT-NAME>SID</SHORT-NAME>
+                  <BYTE-POSITION>0</BYTE-POSITION>
+                  <CODED-VALUE>16</CODED-VALUE>
+                </PARAM>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SUBFUNCTION">
+                  <SHORT-NAME>SubFunction</SHORT-NAME>
+                  <BYTE-POSITION>1</BYTE-POSITION>
+                  <CODED-VALUE>1</CODED-VALUE>
+                </PARAM>
+              </PARAMS>
+            </REQUEST>
+            <POS-RESPONSES>
+              <POS-RESPONSE ID="RES_DSC_DEFAULT">
+                <SHORT-NAME>RES_DSC_Default</SHORT-NAME>
+                <PARAMS>
+                  <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                    <SHORT-NAME>ResponseSID</SHORT-NAME>
+                    <BYTE-POSITION>0</BYTE-POSITION>
+                    <CODED-VALUE>80</CODED-VALUE>
+                  </PARAM>
+                  <PARAM xsi:type="CODED-CONST" SEMANTIC="SUBFUNCTION">
+                    <SHORT-NAME>SessionEcho</SHORT-NAME>
+                    <BYTE-POSITION>1</BYTE-POSITION>
+                    <CODED-VALUE>1</CODED-VALUE>
+                  </PARAM>
+                  <PARAM xsi:type="VALUE" SEMANTIC="DATA">
+                    <SHORT-NAME>P2ServerMax</SHORT-NAME>
+                    <BYTE-POSITION>2</BYTE-POSITION>
+                    <BIT-LENGTH>16</BIT-LENGTH>
+                  </PARAM>
+                  <PARAM xsi:type="VALUE" SEMANTIC="DATA">
+                    <SHORT-NAME>P2StarServerMax</SHORT-NAME>
+                    <BYTE-POSITION>4</BYTE-POSITION>
+                    <BIT-LENGTH>16</BIT-LENGTH>
+                  </PARAM>
+                </PARAMS>
+              </POS-RESPONSE>
+            </POS-RESPONSES>
+            <NEG-RESPONSE-REFS>
+              <NEG-RESPONSE-REF ID-REF="NRES_DSC"/>
+            </NEG-RESPONSE-REFS>
+          </DIAG-SERVICE>
+
+          <!-- 0x10 03 — Extended Diagnostic Session -->
+          <DIAG-SERVICE ID="DS_DSC_EXTENDED" ADDRESSING="PHYSICAL">
+            <SHORT-NAME>DSC_ExtendedDiagnosticSession</SHORT-NAME>
+            <LONG-NAME>Diagnostic Session Control — Extended Diagnostic Session</LONG-NAME>
+            <REQUEST ID="REQ_DSC_EXT">
+              <SHORT-NAME>REQ_DSC_Extended</SHORT-NAME>
+              <PARAMS>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                  <SHORT-NAME>SID</SHORT-NAME>
+                  <BYTE-POSITION>0</BYTE-POSITION>
+                  <CODED-VALUE>16</CODED-VALUE>
+                </PARAM>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SUBFUNCTION">
+                  <SHORT-NAME>SubFunction</SHORT-NAME>
+                  <BYTE-POSITION>1</BYTE-POSITION>
+                  <CODED-VALUE>3</CODED-VALUE>
+                </PARAM>
+              </PARAMS>
+            </REQUEST>
+            <POS-RESPONSES>
+              <POS-RESPONSE ID="RES_DSC_EXT">
+                <SHORT-NAME>RES_DSC_Extended</SHORT-NAME>
+                <PARAMS>
+                  <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                    <SHORT-NAME>ResponseSID</SHORT-NAME>
+                    <BYTE-POSITION>0</BYTE-POSITION>
+                    <CODED-VALUE>80</CODED-VALUE>
+                  </PARAM>
+                  <PARAM xsi:type="CODED-CONST" SEMANTIC="SUBFUNCTION">
+                    <SHORT-NAME>SessionEcho</SHORT-NAME>
+                    <BYTE-POSITION>1</BYTE-POSITION>
+                    <CODED-VALUE>3</CODED-VALUE>
+                  </PARAM>
+                  <PARAM xsi:type="VALUE" SEMANTIC="DATA">
+                    <SHORT-NAME>P2ServerMax</SHORT-NAME>
+                    <BYTE-POSITION>2</BYTE-POSITION>
+                    <BIT-LENGTH>16</BIT-LENGTH>
+                  </PARAM>
+                  <PARAM xsi:type="VALUE" SEMANTIC="DATA">
+                    <SHORT-NAME>P2StarServerMax</SHORT-NAME>
+                    <BYTE-POSITION>4</BYTE-POSITION>
+                    <BIT-LENGTH>16</BIT-LENGTH>
+                  </PARAM>
+                </PARAMS>
+              </POS-RESPONSE>
+            </POS-RESPONSES>
+          </DIAG-SERVICE>
+
+          <!-- 0x10 02 — Programming Session -->
+          <DIAG-SERVICE ID="DS_DSC_PROG" ADDRESSING="PHYSICAL">
+            <SHORT-NAME>DSC_ProgrammingSession</SHORT-NAME>
+            <LONG-NAME>Diagnostic Session Control — Programming Session</LONG-NAME>
+            <REQUEST ID="REQ_DSC_PROG">
+              <SHORT-NAME>REQ_DSC_Programming</SHORT-NAME>
+              <PARAMS>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                  <SHORT-NAME>SID</SHORT-NAME>
+                  <BYTE-POSITION>0</BYTE-POSITION>
+                  <CODED-VALUE>16</CODED-VALUE>
+                </PARAM>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SUBFUNCTION">
+                  <SHORT-NAME>SubFunction</SHORT-NAME>
+                  <BYTE-POSITION>1</BYTE-POSITION>
+                  <CODED-VALUE>2</CODED-VALUE>
+                </PARAM>
+              </PARAMS>
+            </REQUEST>
+          </DIAG-SERVICE>
+
+          <!-- ─────────────────────────────────────────
+               SID 0x22 — ReadDataByIdentifier
+               ───────────────────────────────────── -->
+
+          <!-- 0x22 F190 — VIN -->
+          <DIAG-SERVICE ID="DS_RDBI_VIN" ADDRESSING="PHYSICAL">
+            <SHORT-NAME>RDBI_VIN_F190</SHORT-NAME>
+            <LONG-NAME>Read VIN — Vehicle Identification Number</LONG-NAME>
+            <REQUEST ID="REQ_RDBI_VIN">
+              <SHORT-NAME>REQ_RDBI_VIN</SHORT-NAME>
+              <PARAMS>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                  <SHORT-NAME>SID</SHORT-NAME>
+                  <BYTE-POSITION>0</BYTE-POSITION>
+                  <CODED-VALUE>34</CODED-VALUE>
+                </PARAM>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="ID">
+                  <SHORT-NAME>DataIdentifier</SHORT-NAME>
+                  <BYTE-POSITION>1</BYTE-POSITION>
+                  <BIT-LENGTH>16</BIT-LENGTH>
+                  <CODED-VALUE>61840</CODED-VALUE>
+                </PARAM>
+              </PARAMS>
+            </REQUEST>
+            <POS-RESPONSES>
+              <POS-RESPONSE ID="RES_RDBI_VIN">
+                <SHORT-NAME>RES_RDBI_VIN</SHORT-NAME>
+                <PARAMS>
+                  <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                    <SHORT-NAME>ResponseSID</SHORT-NAME>
+                    <BYTE-POSITION>0</BYTE-POSITION>
+                    <CODED-VALUE>98</CODED-VALUE>
+                  </PARAM>
+                  <PARAM xsi:type="CODED-CONST" SEMANTIC="ID">
+                    <SHORT-NAME>DID_Echo</SHORT-NAME>
+                    <BYTE-POSITION>1</BYTE-POSITION>
+                    <BIT-LENGTH>16</BIT-LENGTH>
+                    <CODED-VALUE>61840</CODED-VALUE>
+                  </PARAM>
+                  <PARAM xsi:type="VALUE" SEMANTIC="DATA">
+                    <SHORT-NAME>VIN_Data</SHORT-NAME>
+                    <BYTE-POSITION>3</BYTE-POSITION>
+                    <BIT-LENGTH>136</BIT-LENGTH>
+                    <DESC><p>ISO 3779 — 17 character ASCII VIN</p></DESC>
+                  </PARAM>
+                </PARAMS>
+              </POS-RESPONSE>
+            </POS-RESPONSES>
+            <NEG-RESPONSE-REFS>
+              <NEG-RESPONSE-REF ID-REF="NRES_RDBI"/>
+            </NEG-RESPONSE-REFS>
+          </DIAG-SERVICE>
+
+          <!-- 0x22 F189 — ECU Software Version -->
+          <DIAG-SERVICE ID="DS_RDBI_SWVER" ADDRESSING="PHYSICAL">
+            <SHORT-NAME>RDBI_SWVersion_F189</SHORT-NAME>
+            <LONG-NAME>Read ECU Software Version Number</LONG-NAME>
+            <REQUEST ID="REQ_RDBI_SWVER">
+              <SHORT-NAME>REQ_RDBI_SWVersion</SHORT-NAME>
+              <PARAMS>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                  <SHORT-NAME>SID</SHORT-NAME>
+                  <BYTE-POSITION>0</BYTE-POSITION>
+                  <CODED-VALUE>34</CODED-VALUE>
+                </PARAM>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="ID">
+                  <SHORT-NAME>DataIdentifier</SHORT-NAME>
+                  <BYTE-POSITION>1</BYTE-POSITION>
+                  <BIT-LENGTH>16</BIT-LENGTH>
+                  <CODED-VALUE>61833</CODED-VALUE>
+                </PARAM>
+              </PARAMS>
+            </REQUEST>
+            <POS-RESPONSES>
+              <POS-RESPONSE ID="RES_RDBI_SWVER">
+                <SHORT-NAME>RES_RDBI_SWVersion</SHORT-NAME>
+                <PARAMS>
+                  <PARAM xsi:type="VALUE" SEMANTIC="DATA">
+                    <SHORT-NAME>SWVersion_Data</SHORT-NAME>
+                    <BYTE-POSITION>3</BYTE-POSITION>
+                    <BIT-LENGTH>80</BIT-LENGTH>
+                    <DESC><p>10-byte ASCII software version string</p></DESC>
+                  </PARAM>
+                </PARAMS>
+              </POS-RESPONSE>
+            </POS-RESPONSES>
+          </DIAG-SERVICE>
+
+          <!-- 0x22 F186 — Active Diagnostic Session -->
+          <DIAG-SERVICE ID="DS_RDBI_SESSION" ADDRESSING="PHYSICAL">
+            <SHORT-NAME>RDBI_ActiveSession_F186</SHORT-NAME>
+            <LONG-NAME>Read Active Diagnostic Session DID</LONG-NAME>
+            <REQUEST ID="REQ_RDBI_SESSION">
+              <SHORT-NAME>REQ_RDBI_ActiveSession</SHORT-NAME>
+              <PARAMS>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                  <SHORT-NAME>SID</SHORT-NAME>
+                  <BYTE-POSITION>0</BYTE-POSITION>
+                  <CODED-VALUE>34</CODED-VALUE>
+                </PARAM>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="ID">
+                  <SHORT-NAME>DataIdentifier</SHORT-NAME>
+                  <BYTE-POSITION>1</BYTE-POSITION>
+                  <BIT-LENGTH>16</BIT-LENGTH>
+                  <CODED-VALUE>61830</CODED-VALUE>
+                </PARAM>
+              </PARAMS>
+            </REQUEST>
+            <POS-RESPONSES>
+              <POS-RESPONSE ID="RES_RDBI_SESSION">
+                <SHORT-NAME>RES_RDBI_ActiveSession</SHORT-NAME>
+                <PARAMS>
+                  <PARAM xsi:type="VALUE" SEMANTIC="DATA">
+                    <SHORT-NAME>Session_Byte</SHORT-NAME>
+                    <BYTE-POSITION>3</BYTE-POSITION>
+                    <BIT-LENGTH>8</BIT-LENGTH>
+                    <DESC><p>0x01=default 0x02=programming 0x03=extended</p></DESC>
+                  </PARAM>
+                </PARAMS>
+              </POS-RESPONSE>
+            </POS-RESPONSES>
+          </DIAG-SERVICE>
+
+          <!-- 0x22 F18C — ECU Serial Number -->
+          <DIAG-SERVICE ID="DS_RDBI_SERIAL" ADDRESSING="PHYSICAL">
+            <SHORT-NAME>RDBI_SerialNumber_F18C</SHORT-NAME>
+            <LONG-NAME>Read ECU Serial Number</LONG-NAME>
+            <REQUEST ID="REQ_RDBI_SERIAL">
+              <SHORT-NAME>REQ_RDBI_SerialNumber</SHORT-NAME>
+              <PARAMS>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                  <SHORT-NAME>SID</SHORT-NAME>
+                  <BYTE-POSITION>0</BYTE-POSITION>
+                  <CODED-VALUE>34</CODED-VALUE>
+                </PARAM>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="ID">
+                  <SHORT-NAME>DataIdentifier</SHORT-NAME>
+                  <BYTE-POSITION>1</BYTE-POSITION>
+                  <BIT-LENGTH>16</BIT-LENGTH>
+                  <CODED-VALUE>61836</CODED-VALUE>
+                </PARAM>
+              </PARAMS>
+            </REQUEST>
+            <POS-RESPONSES>
+              <POS-RESPONSE ID="RES_RDBI_SERIAL">
+                <SHORT-NAME>RES_RDBI_SerialNumber</SHORT-NAME>
+                <PARAMS>
+                  <PARAM xsi:type="VALUE" SEMANTIC="DATA">
+                    <SHORT-NAME>SerialNumber_Data</SHORT-NAME>
+                    <BYTE-POSITION>3</BYTE-POSITION>
+                    <BIT-LENGTH>80</BIT-LENGTH>
+                  </PARAM>
+                </PARAMS>
+              </POS-RESPONSE>
+            </POS-RESPONSES>
+          </DIAG-SERVICE>
+
+          <!-- 0x22 F18B — ECU Manufacturing Date -->
+          <DIAG-SERVICE ID="DS_RDBI_DATE" ADDRESSING="PHYSICAL">
+            <SHORT-NAME>RDBI_ManufacturingDate_F18B</SHORT-NAME>
+            <LONG-NAME>Read ECU Manufacturing Date</LONG-NAME>
+            <REQUEST ID="REQ_RDBI_DATE">
+              <SHORT-NAME>REQ_RDBI_ManufacturingDate</SHORT-NAME>
+              <PARAMS>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                  <SHORT-NAME>SID</SHORT-NAME>
+                  <BYTE-POSITION>0</BYTE-POSITION>
+                  <CODED-VALUE>34</CODED-VALUE>
+                </PARAM>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="ID">
+                  <SHORT-NAME>DataIdentifier</SHORT-NAME>
+                  <BYTE-POSITION>1</BYTE-POSITION>
+                  <BIT-LENGTH>16</BIT-LENGTH>
+                  <CODED-VALUE>61835</CODED-VALUE>
+                </PARAM>
+              </PARAMS>
+            </REQUEST>
+            <POS-RESPONSES>
+              <POS-RESPONSE ID="RES_RDBI_DATE">
+                <SHORT-NAME>RES_RDBI_ManufacturingDate</SHORT-NAME>
+                <PARAMS>
+                  <PARAM xsi:type="VALUE" SEMANTIC="DATA">
+                    <SHORT-NAME>MfgDate_Data</SHORT-NAME>
+                    <BYTE-POSITION>3</BYTE-POSITION>
+                    <BIT-LENGTH>24</BIT-LENGTH>
+                    <DESC><p>3 bytes BCD: year month day e.g. 0x23 0x01 0x15</p></DESC>
+                  </PARAM>
+                </PARAMS>
+              </POS-RESPONSE>
+            </POS-RESPONSES>
+          </DIAG-SERVICE>
+
+          <!-- 0x22 F191 — ECU Hardware Number -->
+          <DIAG-SERVICE ID="DS_RDBI_HW" ADDRESSING="PHYSICAL">
+            <SHORT-NAME>RDBI_HardwareNumber_F191</SHORT-NAME>
+            <LONG-NAME>Read ECU Hardware Number</LONG-NAME>
+            <REQUEST ID="REQ_RDBI_HW">
+              <SHORT-NAME>REQ_RDBI_HardwareNumber</SHORT-NAME>
+              <PARAMS>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                  <SHORT-NAME>SID</SHORT-NAME>
+                  <BYTE-POSITION>0</BYTE-POSITION>
+                  <CODED-VALUE>34</CODED-VALUE>
+                </PARAM>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="ID">
+                  <SHORT-NAME>DataIdentifier</SHORT-NAME>
+                  <BYTE-POSITION>1</BYTE-POSITION>
+                  <BIT-LENGTH>16</BIT-LENGTH>
+                  <CODED-VALUE>61841</CODED-VALUE>
+                </PARAM>
+              </PARAMS>
+            </REQUEST>
+            <POS-RESPONSES>
+              <POS-RESPONSE ID="RES_RDBI_HW">
+                <SHORT-NAME>RES_RDBI_HardwareNumber</SHORT-NAME>
+                <PARAMS>
+                  <PARAM xsi:type="VALUE" SEMANTIC="DATA">
+                    <SHORT-NAME>HWNumber_Data</SHORT-NAME>
+                    <BYTE-POSITION>3</BYTE-POSITION>
+                    <BIT-LENGTH>80</BIT-LENGTH>
+                  </PARAM>
+                </PARAMS>
+              </POS-RESPONSE>
+            </POS-RESPONSES>
+          </DIAG-SERVICE>
+
+          <!-- ─────────────────────────────────────────
+               SID 0x3E — TesterPresent
+               ───────────────────────────────────── -->
+          <DIAG-SERVICE ID="DS_TP" ADDRESSING="PHYSICAL">
+            <SHORT-NAME>TesterPresent</SHORT-NAME>
+            <LONG-NAME>Tester Present — Keep session alive</LONG-NAME>
+            <REQUEST ID="REQ_TP">
+              <SHORT-NAME>REQ_TesterPresent</SHORT-NAME>
+              <PARAMS>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                  <SHORT-NAME>SID</SHORT-NAME>
+                  <BYTE-POSITION>0</BYTE-POSITION>
+                  <CODED-VALUE>62</CODED-VALUE>
+                </PARAM>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SUBFUNCTION">
+                  <SHORT-NAME>SubFunction</SHORT-NAME>
+                  <BYTE-POSITION>1</BYTE-POSITION>
+                  <CODED-VALUE>0</CODED-VALUE>
+                </PARAM>
+              </PARAMS>
+            </REQUEST>
+          </DIAG-SERVICE>
+
+          <!-- ─────────────────────────────────────────
+               SID 0x11 — ECUReset
+               ───────────────────────────────────── -->
+          <DIAG-SERVICE ID="DS_RESET" ADDRESSING="PHYSICAL">
+            <SHORT-NAME>ECUReset_HardReset</SHORT-NAME>
+            <LONG-NAME>ECU Reset — Hard Reset</LONG-NAME>
+            <REQUEST ID="REQ_RESET">
+              <SHORT-NAME>REQ_ECUReset</SHORT-NAME>
+              <PARAMS>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                  <SHORT-NAME>SID</SHORT-NAME>
+                  <BYTE-POSITION>0</BYTE-POSITION>
+                  <CODED-VALUE>17</CODED-VALUE>
+                </PARAM>
+                <PARAM xsi:type="CODED-CONST" SEMANTIC="SUBFUNCTION">
+                  <SHORT-NAME>ResetType</SHORT-NAME>
+                  <BYTE-POSITION>1</BYTE-POSITION>
+                  <CODED-VALUE>1</CODED-VALUE>
+                </PARAM>
+              </PARAMS>
+            </REQUEST>
+          </DIAG-SERVICE>
+
+        </DIAG-COMMS>
+
+        <!-- ═══════════════════════════════════════════════
+             NEGATIVE RESPONSES
+             ═══════════════════════════════════════════ -->
+        <NEG-RESPONSES>
+          <NEG-RESPONSE ID="NRES_DSC">
+            <SHORT-NAME>NRC_DSC</SHORT-NAME>
+            <PARAMS>
+              <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                <SHORT-NAME>NegRespSID</SHORT-NAME>
+                <BYTE-POSITION>0</BYTE-POSITION>
+                <CODED-VALUE>127</CODED-VALUE>
+              </PARAM>
+              <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICEID">
+                <SHORT-NAME>FailedSID</SHORT-NAME>
+                <BYTE-POSITION>1</BYTE-POSITION>
+                <CODED-VALUE>16</CODED-VALUE>
+              </PARAM>
+              <PARAM xsi:type="VALUE" SEMANTIC="DATA">
+                <SHORT-NAME>NRC</SHORT-NAME>
+                <BYTE-POSITION>2</BYTE-POSITION>
+                <BIT-LENGTH>8</BIT-LENGTH>
+              </PARAM>
+            </PARAMS>
+          </NEG-RESPONSE>
+          <NEG-RESPONSE ID="NRES_RDBI">
+            <SHORT-NAME>NRC_RDBI</SHORT-NAME>
+            <PARAMS>
+              <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICE-ID">
+                <SHORT-NAME>NegRespSID</SHORT-NAME>
+                <BYTE-POSITION>0</BYTE-POSITION>
+                <CODED-VALUE>127</CODED-VALUE>
+              </PARAM>
+              <PARAM xsi:type="CODED-CONST" SEMANTIC="SERVICEID">
+                <SHORT-NAME>FailedSID</SHORT-NAME>
+                <BYTE-POSITION>1</BYTE-POSITION>
+                <CODED-VALUE>34</CODED-VALUE>
+              </PARAM>
+              <PARAM xsi:type="VALUE" SEMANTIC="DATA">
+                <SHORT-NAME>NRC</SHORT-NAME>
+                <BYTE-POSITION>2</BYTE-POSITION>
+                <BIT-LENGTH>8</BIT-LENGTH>
+              </PARAM>
+            </PARAMS>
+          </NEG-RESPONSE>
+        </NEG-RESPONSES>
+
+        <!-- ═══════════════════════════════════════════════
+             COMMUNICATION PARAMETERS
+             ═══════════════════════════════════════════ -->
+        <ADDITIONAL-AUDIENCE ID="COM_PARAMS">
+          <SHORT-NAME>CAN_Params</SHORT-NAME>
+        </ADDITIONAL-AUDIENCE>
+
+      </ECU-VARIANT>
+    </ECU-VARIANTS>
+
+  </DIAG-LAYER-CONTAINER>
+</ODX>
